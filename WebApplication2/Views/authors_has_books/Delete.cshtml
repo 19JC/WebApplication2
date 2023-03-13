@@ -1,0 +1,41 @@
+﻿@model WebApplication2.authors_has_books
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar Campo</h2>
+
+<h3>Estas Seguro que lo quieres eliminar?</h3>
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.authors.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.authors.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.books.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.books.title)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver Al Crud", "Index")
+        </div>
+    }
+</div>

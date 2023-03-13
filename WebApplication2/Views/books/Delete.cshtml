@@ -1,0 +1,65 @@
+﻿@model WebApplication2.books
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar Campo</h2>
+
+<h3>Estas Seguro que lo quieres eliminar?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.synopsis)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.synopsis)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.n_pages)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.n_pages)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.authors_has_books.books_ISBN_INT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.authors_has_books.books_ISBN_INT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.editorials.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.editorials.name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Borrar" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver Al Crud", "Index")
+        </div>
+    }
+</div>

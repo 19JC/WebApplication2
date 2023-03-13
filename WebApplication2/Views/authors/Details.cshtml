@@ -1,0 +1,35 @@
+﻿@model WebApplication2.authors
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalles</h2>
+
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.surname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Campo", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Volver al Crud", "Index")
+</p>

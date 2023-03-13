@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BiblioModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="authors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="surname" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="authors_has_books">
+          <Key>
+            <PropertyRef Name="books_ISBN_INT" />
+          </Key>
+          <Property Name="authors_id" Type="int" />
+          <Property Name="books_ISBN_INT" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="books">
+          <Key>
+            <PropertyRef Name="ISBN_INT" />
+          </Key>
+          <Property Name="ISBN_INT" Type="int" Nullable="false" />
+          <Property Name="editorials_id" Type="int" />
+          <Property Name="title" Type="varchar" MaxLength="255" />
+          <Property Name="synopsis" Type="text" />
+          <Property Name="n_pages" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="editorials">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="headquarters" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__authors_h__autho__1BFD2C07">
+          <End Role="authors" Type="Self.authors" Multiplicity="0..1" />
+          <End Role="authors_has_books" Type="Self.authors_has_books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="authors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="authors_has_books">
+              <PropertyRef Name="authors_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__authors_h__books__1CF15040">
+          <End Role="books" Type="Self.books" Multiplicity="1" />
+          <End Role="authors_has_books" Type="Self.authors_has_books" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="ISBN_INT" />
+            </Principal>
+            <Dependent Role="authors_has_books">
+              <PropertyRef Name="books_ISBN_INT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__books__editorial__1920BF5C">
+          <End Role="editorials" Type="Self.editorials" Multiplicity="0..1" />
+          <End Role="books" Type="Self.books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="editorials">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="editorials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BiblioModelStoreContainer">
+          <EntitySet Name="authors" EntityType="Self.authors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="authors_has_books" EntityType="Self.authors_has_books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="books" EntityType="Self.books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="editorials" EntityType="Self.editorials" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__authors_h__autho__1BFD2C07" Association="Self.FK__authors_h__autho__1BFD2C07">
+            <End Role="authors" EntitySet="authors" />
+            <End Role="authors_has_books" EntitySet="authors_has_books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__authors_h__books__1CF15040" Association="Self.FK__authors_h__books__1CF15040">
+            <End Role="books" EntitySet="books" />
+            <End Role="authors_has_books" EntitySet="authors_has_books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__books__editorial__1920BF5C" Association="Self.FK__books__editorial__1920BF5C">
+            <End Role="editorials" EntitySet="editorials" />
+            <End Role="books" EntitySet="books" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BiblioModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="authors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="authors_has_books" Relationship="Self.FK__authors_h__autho__1BFD2C07" FromRole="authors" ToRole="authors_has_books" />
+        </EntityType>
+        <EntityType Name="authors_has_books">
+          <Key>
+            <PropertyRef Name="books_ISBN_INT" />
+          </Key>
+          <Property Name="authors_id" Type="Int32" />
+          <Property Name="books_ISBN_INT" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="authors" Relationship="Self.FK__authors_h__autho__1BFD2C07" FromRole="authors_has_books" ToRole="authors" />
+          <NavigationProperty Name="books" Relationship="Self.FK__authors_h__books__1CF15040" FromRole="authors_has_books" ToRole="books" />
+        </EntityType>
+        <EntityType Name="books">
+          <Key>
+            <PropertyRef Name="ISBN_INT" />
+          </Key>
+          <Property Name="ISBN_INT" Type="Int32" Nullable="false" />
+          <Property Name="editorials_id" Type="Int32" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="synopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="n_pages" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="authors_has_books" Relationship="Self.FK__authors_h__books__1CF15040" FromRole="books" ToRole="authors_has_books" />
+          <NavigationProperty Name="editorials" Relationship="Self.FK__books__editorial__1920BF5C" FromRole="books" ToRole="editorials" />
+        </EntityType>
+        <EntityType Name="editorials">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="headquarters" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="books" Relationship="Self.FK__books__editorial__1920BF5C" FromRole="editorials" ToRole="books" />
+        </EntityType>
+        <Association Name="FK__authors_h__autho__1BFD2C07">
+          <End Role="authors" Type="Self.authors" Multiplicity="0..1" />
+          <End Role="authors_has_books" Type="Self.authors_has_books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="authors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="authors_has_books">
+              <PropertyRef Name="authors_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__authors_h__books__1CF15040">
+          <End Role="books" Type="Self.books" Multiplicity="1" />
+          <End Role="authors_has_books" Type="Self.authors_has_books" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="books">
+              <PropertyRef Name="ISBN_INT" />
+            </Principal>
+            <Dependent Role="authors_has_books">
+              <PropertyRef Name="books_ISBN_INT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__books__editorial__1920BF5C">
+          <End Role="editorials" Type="Self.editorials" Multiplicity="0..1" />
+          <End Role="books" Type="Self.books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="editorials">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="books">
+              <PropertyRef Name="editorials_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BiblioEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="authors" EntityType="Self.authors" />
+          <EntitySet Name="authors_has_books" EntityType="Self.authors_has_books" />
+          <EntitySet Name="books" EntityType="Self.books" />
+          <EntitySet Name="editorials" EntityType="Self.editorials" />
+          <AssociationSet Name="FK__authors_h__autho__1BFD2C07" Association="Self.FK__authors_h__autho__1BFD2C07">
+            <End Role="authors" EntitySet="authors" />
+            <End Role="authors_has_books" EntitySet="authors_has_books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__authors_h__books__1CF15040" Association="Self.FK__authors_h__books__1CF15040">
+            <End Role="books" EntitySet="books" />
+            <End Role="authors_has_books" EntitySet="authors_has_books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__books__editorial__1920BF5C" Association="Self.FK__books__editorial__1920BF5C">
+            <End Role="editorials" EntitySet="editorials" />
+            <End Role="books" EntitySet="books" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BiblioModelStoreContainer" CdmEntityContainer="BiblioEntities">
+          <EntitySetMapping Name="authors">
+            <EntityTypeMapping TypeName="BiblioModel.authors">
+              <MappingFragment StoreEntitySet="authors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="authors_has_books">
+            <EntityTypeMapping TypeName="BiblioModel.authors_has_books">
+              <MappingFragment StoreEntitySet="authors_has_books">
+                <ScalarProperty Name="authors_id" ColumnName="authors_id" />
+                <ScalarProperty Name="books_ISBN_INT" ColumnName="books_ISBN_INT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="books">
+            <EntityTypeMapping TypeName="BiblioModel.books">
+              <MappingFragment StoreEntitySet="books">
+                <ScalarProperty Name="ISBN_INT" ColumnName="ISBN_INT" />
+                <ScalarProperty Name="editorials_id" ColumnName="editorials_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="synopsis" ColumnName="synopsis" />
+                <ScalarProperty Name="n_pages" ColumnName="n_pages" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="editorials">
+            <EntityTypeMapping TypeName="BiblioModel.editorials">
+              <MappingFragment StoreEntitySet="editorials">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="headquarters" ColumnName="headquarters" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

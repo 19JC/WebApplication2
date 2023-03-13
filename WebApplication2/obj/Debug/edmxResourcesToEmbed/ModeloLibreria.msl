@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BiblioModelStoreContainer" CdmEntityContainer="BiblioEntities">
+    <EntitySetMapping Name="authors">
+      <EntityTypeMapping TypeName="BiblioModel.authors">
+        <MappingFragment StoreEntitySet="authors">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="authors_has_books">
+      <EntityTypeMapping TypeName="BiblioModel.authors_has_books">
+        <MappingFragment StoreEntitySet="authors_has_books">
+          <ScalarProperty Name="authors_id" ColumnName="authors_id" />
+          <ScalarProperty Name="books_ISBN_INT" ColumnName="books_ISBN_INT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="books">
+      <EntityTypeMapping TypeName="BiblioModel.books">
+        <MappingFragment StoreEntitySet="books">
+          <ScalarProperty Name="ISBN_INT" ColumnName="ISBN_INT" />
+          <ScalarProperty Name="editorials_id" ColumnName="editorials_id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="synopsis" ColumnName="synopsis" />
+          <ScalarProperty Name="n_pages" ColumnName="n_pages" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="editorials">
+      <EntityTypeMapping TypeName="BiblioModel.editorials">
+        <MappingFragment StoreEntitySet="editorials">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="headquarters" ColumnName="headquarters" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
